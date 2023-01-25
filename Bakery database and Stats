@@ -1,0 +1,33 @@
+--Create a bakery database
+
+CREATE TABLE baked_goods (id INTEGER PRIMARY KEY, item INTEGER, quantity INTEGER, section INTEGER, price INTEGER);
+
+INSERT INTO baked_goods VALUES (1, "Cinnamon Rolls", 25, 2, 8);
+INSERT INTO baked_goods VALUES (2, "Chocolate Cookies", 50, 6, 3);
+INSERT INTO baked_goods VALUES (3, "Double Chocolate Cookies", 45, 6, 3);
+INSERT INTO baked_goods VALUES (4, "Sinkerdoodle", 40, 6, 3);
+INSERT INTO baked_goods VALUES (5, "Croissants", 55, 2, 5);
+INSERT INTO baked_goods VALUES (6, "Bagels", 102, 1, 5);
+INSERT INTO baked_goods VALUES (7, "Cheesecake", 30, 3, 10);
+INSERT INTO baked_goods VALUES (8, "Doughnut", 140, 2, 12);
+INSERT INTO baked_goods VALUES (9, "Danish", 45, 2, 8);
+INSERT INTO baked_goods VALUES (10, "Coffee Cake", 102, 2, 6);
+INSERT INTO baked_goods VALUES (11, "Scones", 250, 6, 4);
+INSERT INTO baked_goods VALUES (12, "Biscuits", 85, 6, 3);
+INSERT INTO baked_goods VALUES (13, "Strawberry Shortcake", 43, 3, 12);
+INSERT INTO baked_goods VALUES (14, "Mini Sweet Potato Pie", 40, 3, 10); 
+INSERT INTO baked_goods VALUES (15, "Banana Bread", 40, 2, 7);
+
+--display the database ordered by price.
+SELECT * FROM baked_goods
+ORDER BY price DESC; 
+
+--what is the avg price of items in baked goods?
+SELECT AVG(price) 
+FROM baked_goods;
+
+--what are the 3 most expensive baked good items?
+SELECT item, price, section 
+FROM baked_goods WHERE price >=8 
+order by price DESC; 
+ 
