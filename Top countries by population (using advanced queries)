@@ -12,6 +12,8 @@ CREATE TABLE countries(
    median_age              REAL,
    percent_of_world_pop    REAL
 );
+
+--insert data into database
 INSERT INTO countries(name,population,percent_one_year_change,population_change,density_per_sq_km,area_sq_km,net_migrants,fertility_rate,median_age,percent_of_world_pop) VALUES ('China',1439323776,0.39,5540090,153,9388211,-348399,1.70,38.00,18.47);
 INSERT INTO countries(name,population,percent_one_year_change,population_change,density_per_sq_km,area_sq_km,net_migrants,fertility_rate,median_age,percent_of_world_pop) VALUES ('India',1380004385,0.99,13586631,464,2973190,-532687,2.20,28.00,17.7);
 INSERT INTO countries(name,population,percent_one_year_change,population_change,density_per_sq_km,area_sq_km,net_migrants,fertility_rate,median_age,percent_of_world_pop) VALUES ('United States',331002651,0.59,1937734,36,9147420,954806,1.80,38.00,4.25);
@@ -214,31 +216,33 @@ INSERT INTO countries(name,population,percent_one_year_change,population_change,
 INSERT INTO countries(name,population,percent_one_year_change,population_change,density_per_sq_km,area_sq_km,net_migrants,fertility_rate,median_age,percent_of_world_pop) VALUES ('Seychelles',98347,0.62,608,214,460,-200,2.50,34.00,0);
 INSERT INTO countries(name,population,percent_one_year_change,population_change,density_per_sq_km,area_sq_km,net_migrants,fertility_rate,median_age,percent_of_world_pop) VALUES ('Antigua and Barbuda',97929,0.84,811,223,440,0,2.00,34.00,0);
 
---display database to calculate the average, maxium, 
-and minimum population of countries
+-- what is the average, minimum, maximum population?
 
 SELECT name, ROUND (AVG (population)) AS avg_population    FROM countries;
 SELECT name, MAX(population) AS max_population     FROM countries;
 SELECT name, MIN(population) AS min_population     FROM countries;
 
---display database to show the median age 
-of each country with a count larger than or equal to 3 
+--which country has the median age?
 
 SELECT name, median_age FROM countries GROUP BY median_age HAVING COUNT(*) >= 3;
 
---narrow down the database to countries with less than 3000000 people and are over the age of 40. 
+--which countries has the least population and higher age?
 
 SELECT * FROM countries WHERE median_age >= 40 AND population < 3000000 ORDER BY median_age;
 
---indict when the population is greater than 5000000 and under the age of 40
+--which country has the most population and under 40 years old?
+
 SELECT * FROM countries WHERE population > 5000000 OR median_age <= 40 ORDER BY median_age;
 
---
+--what countries have a population under 45
+
 SELECT name, SUM(population) AS total_population FROM countries
-    GROUP BY median_age
+    GROUP BY name 
     HAVING total_population > 45000000;
     
 /* CASE */
+--whats countries have the average, above average, and below average population?
+
 SELECT name, population,
     CASE 
         WHEN population > 40000000 THEN "above average"
