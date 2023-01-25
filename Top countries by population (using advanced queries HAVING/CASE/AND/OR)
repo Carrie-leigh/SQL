@@ -1,3 +1,5 @@
+-- Create a table of Top countries by Population by using advanced queries
+
 CREATE TABLE countries(
    name                    TEXT PRIMARY KEY,
    population              INTEGER,
@@ -212,17 +214,21 @@ INSERT INTO countries(name,population,percent_one_year_change,population_change,
 INSERT INTO countries(name,population,percent_one_year_change,population_change,density_per_sq_km,area_sq_km,net_migrants,fertility_rate,median_age,percent_of_world_pop) VALUES ('Seychelles',98347,0.62,608,214,460,-200,2.50,34.00,0);
 INSERT INTO countries(name,population,percent_one_year_change,population_change,density_per_sq_km,area_sq_km,net_migrants,fertility_rate,median_age,percent_of_world_pop) VALUES ('Antigua and Barbuda',97929,0.84,811,223,440,0,2.00,34.00,0);
 
-SELECT name, AVG(fertility_rate) AS avg_fertility     FROM countries;
+--display database to calculate the average, maxium, 
+and minimum population of countries
 
-SELECT name, MAX(fertility_rate) AS max_fertility     FROM countries;
+SELECT name, ROUND (AVG (population)) AS avg_population    FROM countries;
+SELECT name, MAX(population) AS max_population     FROM countries;
+SELECT name, MIN(population) AS min_population     FROM countries;
 
-SELECT name, MIN(fertility_rate) AS min_fertility     FROM countries;
+--display database to show the median age 
+of each country with a count larger than or equal to 3 
 
 SELECT name, median_age FROM countries GROUP BY median_age HAVING COUNT(*) >= 3;
 
-SELECT * FROM countries WHERE median_age >= 40 ORDER BY median_age;
+-- display database to show the median age 
+column and a population greater than 300000
 
-/* AND */
 SELECT * FROM countries WHERE median_age >= 40 AND population < 3000000 ORDER BY median_age;
 
 /* OR */
