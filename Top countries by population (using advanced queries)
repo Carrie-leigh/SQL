@@ -226,14 +226,14 @@ of each country with a count larger than or equal to 3
 
 SELECT name, median_age FROM countries GROUP BY median_age HAVING COUNT(*) >= 3;
 
--- display database to show the median age 
-column and a population greater than 300000
+--narrow down the database to countries with less than 3000000 people and are over the age of 40. 
 
 SELECT * FROM countries WHERE median_age >= 40 AND population < 3000000 ORDER BY median_age;
 
-/* OR */
-SELECT * FROM countries WHERE population > 5000000 OR median_age <= 35;
+--indict when the population is greater than 5000000 and under the age of 40
+SELECT * FROM countries WHERE population > 5000000 OR median_age <= 40 ORDER BY median_age;
 
+--
 SELECT name, SUM(population) AS total_population FROM countries
     GROUP BY median_age
     HAVING total_population > 45000000;
