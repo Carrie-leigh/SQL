@@ -1,3 +1,5 @@
+#In this SQL, I'm querying a database with multiple tables in it to quantify statistics about customers and order data.
+
 #1 How many orders were placed in January?
 
 SELECT COUNT (orderID) FROM BIT_DB.JanSales
@@ -12,6 +14,7 @@ SELECT COUNT(Product) FROM BIT_DB.JanSales
     AND orderID <> 'Order ID';
     
 #3 Select the customer account numbers for all the orders that were placed in February.
+
 SELECT distinct acctnum
 
     FROM BIT_DB.customers
