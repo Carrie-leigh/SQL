@@ -1,0 +1,55 @@
+# For this project, I downloaded Spotify data from Kaggle.
+# Then I created a table to insert Spotify data into.
+# Finally, I performed analytics on the data using SQL. 
+
+#Create table
+CREATE TABLE BIT_DB.Spotifydata (
+id integer PRIMARY KEY,
+artist_name varchar NOT NULL,
+track_name varchar NOT NULL,
+track_id varchar NOT NULL,
+popularity integer NOT NULL,
+danceability decimal(4,3) NOT NULL,
+energy decimal(4,3) NOT NULL,
+song_key integer NOT NULL,
+loudness decimal(5,3) NOT NULL,
+song_mode integer NOT NULL,
+speechiness decimal(5,4) NOT NULL,
+acousticness decimal(6,5) NOT NULL,
+instrumentalness text NOT NULL,
+liveness decimal(5,4) NOT NULL,
+valence decimal(4,3) NOT NULL,
+tempo decimal(6,3) NOT NULL,
+duration_ms integer NOT NULL,
+time_signature integer NOT NULL);
+
+#1 How many songs have an evergy level over .5?
+SELECT COUNT (energy) AS total_energy
+    FROM BIT_DB.Spotifydata
+    WHERE energy >.6;
+    
+#2 List all songs by Olivia Robrigo and order the song by popularity.    
+SELECT  popularity, artist_name, track_name 
+    FROM BIT_DB.Spotifydata
+    WHERE artist_name LIKE '%Olivia%'
+    ORDER BY popularity DESC;
+
+#3 What is the average length of a song where the artists name is Doja Cat?
+SELECT artist_name, SUM(duration_ms)/count(id) AS avg_duration
+    FROM BIT_DB.Spotifydata
+    WHERE artist_name LIKE '%DOJA%';
+
+#4 What are the top 12 songs based on popularity and who are the songs by?
+SELECT artist_name, track_name, popularity
+    FROM BIT_DB.Spotifydata
+    ORDER BY popularity DESC
+    LIMIT 12;
+
+#5 Which artist have an energy level over .5 and what is the average duration of each song?
+ SELECT artist_name, energy, duration_ms
+    FROM BIT_DB.Spotifydata
+    WHERE energy > .5
+    GROUP BY artist_name
+    ORDER BY energy DESC;
+    
+    
