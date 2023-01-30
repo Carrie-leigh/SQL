@@ -51,5 +51,9 @@ SELECT artist_name, track_name, popularity
     WHERE energy > .5
     GROUP BY artist_name
     ORDER BY energy DESC;
-    
-    
+
+#6 Which songs have an Allegro tempo (120-168) and what are their time signatures?
+SELECT artist_name, track_name, tempo AS Allegro_tempo, time_signature
+    FROM BIT_DB.Spotifydata
+    WHERE Allegro_tempo BETWEEN 120 AND 168
+    ORDER BY Allegro_tempo;   
