@@ -1,0 +1,42 @@
+# This data represent a digital media store that includes tables for artists, albums, media tracks, invoices, and customers.
+
+#1 Show customers (their full name, customers ID, and country) who are not in the U.S.
+SELECT Customerid, FirstName, LastName, Country
+     FROM chinook.customers
+     WHERE country <> 'USA';
+     
+#2 What is the total of sales in 2009     
+SELECT invoicedate, SUM (unitprice)
+    FROM chinook.invoices LEFT JOIN chinook.invoice_items
+    ON invoice_items.invoiceid = invoices.invoiceid
+    HAVING invoicedate LIKE "%2009%";
+    
+#3 Which sales agent made the most sales in dollars?   
+SELECT employees.firstname, employees.lastname, ROUND (SUM (invoices.total)) AS total_sales
+    FROM chinook.employees LEFT JOIN chinook.customers
+    ON employees.employeeid = customers.supportrepID
+    LEFT JOIN chinook.invoices 
+    ON customers.customerid = invoices.customerid
+    
+    WHERE invoices.total IS NOT NULL
+    GROUP BY employees.firstname;
+    
+#4 List all the genres, the cost of each genre and the amount of genres that were sold.   
+SELECT genres.name, tracks.UnitPrice AS Price, SUM (invoice_items.Quantity) AS 'Total Quantity'
+    FROM chinook.genres INNER JOIN chinook.tracks 
+    ON genres.GenreId = tracks.GenreId
+    INNER JOIN chinook.invoice_items
+    ON tracks.trackid = invoice_items.TrackId
+    
+    GROUP BY genres.name
+    ORDER BY SUM (invoice_items.Quantity) DESC;
+    
+#5 List all the customers in the U.S. Then order the customers from most to least dollars spent. 
+SELECT Firstname, LastName, state, Country, ROUND (SUM (Total), 2) AS 'Total Spent'
+    FROM chinook.customers LEFT JOIN chinook.invoices
+    ON customers.customerid = invoices.customerid
+    WHERE state IS NOT NULL
+    AND country = 'USA'
+    
+    GROUP BY Firstname
+    Order BY ROUND (SUM (Total), 2) DESC;
