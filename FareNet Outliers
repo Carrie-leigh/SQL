@@ -1,0 +1,23 @@
+SELECT * FROM FareNet_Searches;
+
+--Finding the AVG sum of Total Price from FareNet Searches 
+
+SELECT AVG(CAST(TotalPriceUSD AS DECIMAL)) FROM FareNet_Searches;
+
+--Finding the Outlier (FareNet Searches)
+
+SELECT EmcID, TotalPriceUSD
+FROM FareNet_Searches
+WHERE TotalPriceUSD < 130 OR TotalPriceUSD > 1097;
+
+--Total Amount of Outliers (FareNet Searches)
+
+SELECT COUNT(*) 
+FROM FareNet_Searches
+WHERE TotalPriceUSD < 130 OR TotalPriceUSD > 1097;
+
+-- Percentage of Outliers
+
+SELECT COUNT(*) * 100.0 / (SELECT COUNT(*) FROM FareNet_Searches) AS percentage
+FROM FareNet_Searches
+WHERE TotalPriceUSD < 130 OR TotalPriceUSD > 1097;
